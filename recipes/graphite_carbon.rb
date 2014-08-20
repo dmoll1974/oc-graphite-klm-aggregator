@@ -41,9 +41,20 @@ cookbook_file '/etc/carbon/aggregation-rules.conf' do
   group 'root'
 end
 
+cookbook_file '/etc/init.d/carbon-aggregator' do
+  source 'carbon-aggregator.sh'
+  mode 0755
+  owner 'root'
+  group 'root'
+end
+
 
 service 'carbon-cache' do
   action [:enable, :start]
   supports :restart => true, :start => true, :stop => true
 end
 
+service 'carbon-aggregator' do
+  action [:enable, :start]
+  supports :restart => true, :start => true, :stop => true
+end
